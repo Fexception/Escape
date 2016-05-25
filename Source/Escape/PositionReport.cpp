@@ -12,6 +12,8 @@ UPositionReport::UPositionReport()
 	bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = true;
 
+	
+
 	// ...
 }
 
@@ -21,6 +23,16 @@ void UPositionReport::BeginPlay()
 {
 	Super::BeginPlay();
 
+	FVector ObjectPos = GetOwner()->GetActorLocation();
+	FString ObjectPosText = ObjectPos.ToString();
+
+	// Create FString to store ObjectName, GetOwner is a pointer, 
+	// We looked through it for GetName, which returns the name.
+	FString ObjectName = GetOwner()->GetName(); 
+	// Write to the log, %s (format operator) is a placeholder for the objectname as it is in the world view,
+	// Uses *ObjectName as a dereference, the * is because UE_LOG is expecting
+	// a TCHAR array, and the * converts the string to this type.
+	UE_LOG(LogTemp, Warning, TEXT("%s is at %s"), *ObjectName, *ObjectPosText);
 	// ...
 	
 }
@@ -30,7 +42,6 @@ void UPositionReport::BeginPlay()
 void UPositionReport::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
-
-	// ...
+	
 }
 
