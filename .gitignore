@@ -1,0 +1,11 @@
+*/Intermediate
+*/Build
+*/Binaries
+*/DerivedDataCache
+*/Saved
+Escape/Content/StarterContent/
+*.db
+Intermediate/
+Content/StarterContent/
+Binaries/
+Saved/
