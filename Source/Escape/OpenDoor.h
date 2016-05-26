@@ -14,13 +14,28 @@ class ESCAPE_API UOpenDoor : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UOpenDoor();
-
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+	void OpenDoor();
 	
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-		
+private:
+	UPROPERTY(VisibleAnywhere)
+	AActor* PawnThatOpens;
+	//The following means these properties are visible in the "Inspector"
+	UPROPERTY(VisibleAnywhere)
+	float OpenAngle = 90.0f;
+
+	//The following means these properties are editable in the Inspector.
+	UPROPERTY(EditAnywhere)
+	ATriggerVolume* PressurePlate;
+
+	//Pawn inherits from actor, can use actor instead (like a player)
+	UPROPERTY(EditAnywhere)
+	AActor* ActorThatOpens; 
+
 	
 };

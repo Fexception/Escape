@@ -4,6 +4,7 @@
 #include "OpenDoor.h"
 
 
+
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()
 {
@@ -20,14 +21,20 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
-	AActor* Owner = GetOwner();
-	FRotator NewRotation = FRotator(0.0f, 85.0f, 0.0f);
-	Owner->SetActorRotation(NewRotation);
-	
+	PawnThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
 	
 	
 	// ...
 	
+}
+
+void UOpenDoor::OpenDoor()
+{
+	AActor* Owner = GetOwner();
+	//Create a rotator.
+	FRotator NewRotation = FRotator(0.0f, 0.0f, 0.0f);
+	//Set door rotation.
+	Owner->SetActorRotation(NewRotation);
 }
 
 
@@ -36,6 +43,13 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
-	// ...
+	// Poll the trigger volume every frame
+	if (PressurePlate->IsOverlappingActor(PawnThatOpens)) {
+
+		OpenDoor();
+	}
+	
+	// if the ActorThatOpens is in the volume
+	
 }
 
