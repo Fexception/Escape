@@ -4,7 +4,7 @@
 
 #include "Components/ActorComponent.h"
 #include "OpenDoor.generated.h"
-
+#define OUT
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ESCAPE_API UOpenDoor : public UActorComponent
@@ -23,6 +23,8 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
+	
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	AActor* PawnThatOpens;
@@ -40,5 +42,7 @@ private:
 	float DoorCloseDelay = 1.f;
 	float LastDoorOpenTime;
 	AActor* Owner; //The owning actor
+
+	float GetTotalMassOfActorsOnPlate();
 	
 };
