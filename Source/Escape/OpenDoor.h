@@ -27,21 +27,21 @@ public:
 
 private:
 	UPROPERTY(VisibleAnywhere)
-	AActor* PawnThatOpens;
+	AActor* PawnThatOpens = nullptr;
 	//The following means these properties are visible in the "Inspector"
 	UPROPERTY(VisibleAnywhere)
 	float OpenAngle = 90.0f;
 
 	//The following means these properties are editable in the Inspector.
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* PressurePlate;
+	ATriggerVolume* PressurePlate = nullptr;
 
 	//Pawn inherits from actor, can use actor instead (like a player)
 	UPROPERTY(EditAnywhere)
-	AActor* ActorThatOpens; 
+	AActor* ActorThatOpens = nullptr; 
 	float DoorCloseDelay = 1.f;
 	float LastDoorOpenTime;
-	AActor* Owner; //The owning actor
+	AActor* Owner = nullptr; //The owning actor
 
 	float GetTotalMassOfActorsOnPlate();
 	

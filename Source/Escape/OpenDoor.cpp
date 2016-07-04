@@ -52,6 +52,7 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
 	// Poll the trigger volume every frame
+	if (!PressurePlate) { return; }
 	if (PressurePlate->IsOverlappingActor(PawnThatOpens) || GetTotalMassOfActorsOnPlate() > 50.f) {
 
 		OpenDoor();
@@ -69,9 +70,14 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate() {
 
 	//Find all the overlapping actors
 	TArray<AActor*> OverlappingActors;
+
+	if (!PressurePlate) { return TotalMass; }
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 	//Iterate through them adding their masses.
-
+	for (const auto& Actor : OverlappingActors) {
+		TotalMass += Actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+		UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate"), *Actor->GetName())
+	}
 
 	return TotalMass;
 }
