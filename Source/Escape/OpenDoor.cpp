@@ -34,7 +34,9 @@ void UOpenDoor::OpenDoor()
 	//Create a rotator.
 	//FRotator NewRotation = FRotator(0.0f, 0.0f, 0.0f);
 	//Set door rotation.
-	Owner->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
+	//Owner->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
+
+	OnOpenRequest.Broadcast();
 }
 
 void UOpenDoor::CloseDoor()
@@ -43,7 +45,9 @@ void UOpenDoor::CloseDoor()
 	//Create a rotator.
 	//FRotator NewRotation = FRotator(0.0f, 0.0f, 0.0f);
 	//Set door rotation.
-	Owner->SetActorRotation(FRotator(0.0f, 90.0f, 0.0f));
+	//Owner->SetActorRotation(FRotator(0.0f, 90.0f, 0.0f));
+
+	OnCloseRequest.Broadcast();
 }
 
 // Called every frame
@@ -53,10 +57,10 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 
 	// Poll the trigger volume every frame
 	if (!PressurePlate) { return; }
-	if (PressurePlate->IsOverlappingActor(PawnThatOpens) || GetTotalMassOfActorsOnPlate() > 50.f) {
+	if (PressurePlate->IsOverlappingActor(PawnThatOpens) || GetTotalMassOfActorsOnPlate() > TriggerMass) {
 
 		OpenDoor();
-		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
+		
 	} else{
 		CloseDoor();
 	}
